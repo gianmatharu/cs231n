@@ -1,0 +1,2141 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{RNN\_Captioning}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{image-captioning-with-rnns}{%
+\section{Image Captioning with RNNs}\label{image-captioning-with-rnns}}
+
+In this exercise you will implement a vanilla recurrent neural networks
+and use them it to train a model that can generate novel captions for
+images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} As usual, a bit of setup}
+        \PY{k+kn}{import} \PY{n+nn}{time}\PY{o}{,} \PY{n+nn}{os}\PY{o}{,} \PY{n+nn}{json}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{gradient\PYZus{}check} \PY{k}{import} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{,} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{rnn\PYZus{}layers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{captioning\PYZus{}solver} \PY{k}{import} \PY{n}{CaptioningSolver}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{classifiers}\PY{n+nn}{.}\PY{n+nn}{rnn} \PY{k}{import} \PY{n}{CaptioningRNN}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{coco\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}coco\PYZus{}data}\PY{p}{,} \PY{n}{sample\PYZus{}coco\PYZus{}minibatch}\PY{p}{,} \PY{n}{decode\PYZus{}captions}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{image\PYZus{}utils} \PY{k}{import} \PY{n}{image\PYZus{}from\PYZus{}url}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} for auto\PYZhy{}reloading external modules}
+        \PY{c+c1}{\PYZsh{} see http://stackoverflow.com/questions/1907993/autoreload\PYZhy{}of\PYZhy{}modules\PYZhy{}in\PYZhy{}ipython}
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        
+        \PY{k}{def} \PY{n+nf}{rel\PYZus{}error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} returns relative error \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{install-h5py}{%
+\subsection{Install h5py}\label{install-h5py}}
+
+The COCO dataset we will be using is stored in HDF5 format. To load HDF5
+files, we will need to install the \texttt{h5py} Python package. From
+the command line, run: \texttt{pip\ install\ h5py} If you receive a
+permissions error, you may need to run the command as root:
+\texttt{sudo\ pip\ install\ h5py}
+
+You can also run commands directly from the Jupyter notebook by
+prefixing the command with the ``!'' character:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{!}pip install h5py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Requirement already satisfied: h5py in /Users/gianmatharu/anaconda2/envs/cs231n/lib/python3.6/site-packages (2.9.0)
+Requirement already satisfied: six in /Users/gianmatharu/anaconda2/envs/cs231n/lib/python3.6/site-packages (from h5py) (1.11.0)
+Requirement already satisfied: numpy>=1.7 in /Users/gianmatharu/anaconda2/envs/cs231n/lib/python3.6/site-packages (from h5py) (1.14.3)
+\textcolor{ansi-yellow}{You are using pip version 18.1, however version 19.0.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.}
+
+    \end{Verbatim}
+
+    \hypertarget{microsoft-coco}{%
+\section{Microsoft COCO}\label{microsoft-coco}}
+
+For this exercise we will use the 2014 release of the
+\href{http://mscoco.org/}{Microsoft COCO dataset} which has become the
+standard testbed for image captioning. The dataset consists of 80,000
+training images and 40,000 validation images, each annotated with 5
+captions written by workers on Amazon Mechanical Turk.
+
+You should have already downloaded the data by changing to the
+\texttt{cs231n/datasets} directory and running the script
+\texttt{get\_assignment3\_data.sh}. If you haven't yet done so, run that
+script now. Warning: the COCO data download is \textasciitilde{}1GB.
+
+We have preprocessed the data and extracted features for you already.
+For all images we have extracted features from the fc7 layer of the
+VGG-16 network pretrained on ImageNet; these features are stored in the
+files \texttt{train2014\_vgg16\_fc7.h5} and
+\texttt{val2014\_vgg16\_fc7.h5} respectively. To cut down on processing
+time and memory requirements, we have reduced the dimensionality of the
+features from 4096 to 512; these features can be found in the files
+\texttt{train2014\_vgg16\_fc7\_pca.h5} and
+\texttt{val2014\_vgg16\_fc7\_pca.h5}.
+
+The raw images take up a lot of space (nearly 20GB) so we have not
+included them in the download. However all images are taken from Flickr,
+and URLs of the training and validation images are stored in the files
+\texttt{train2014\_urls.txt} and \texttt{val2014\_urls.txt}
+respectively. This allows you to download images on the fly for
+visualization. Since images are downloaded on-the-fly, \textbf{you must
+be connected to the internet to view images}.
+
+Dealing with strings is inefficient, so we will work with an encoded
+version of the captions. Each word is assigned an integer ID, allowing
+us to represent a caption by a sequence of integers. The mapping between
+integer IDs and words is in the file \texttt{coco2014\_vocab.json}, and
+you can use the function \texttt{decode\_captions} from the file
+\texttt{cs231n/coco\_utils.py} to convert numpy arrays of integer IDs
+back into strings.
+
+There are a couple special tokens that we add to the vocabulary. We
+prepend a special \texttt{\textless{}START\textgreater{}} token and
+append an \texttt{\textless{}END\textgreater{}} token to the beginning
+and end of each caption respectively. Rare words are replaced with a
+special \texttt{\textless{}UNK\textgreater{}} token (for ``unknown'').
+In addition, since we want to train with minibatches containing captions
+of different lengths, we pad short captions with a special
+\texttt{\textless{}NULL\textgreater{}} token after the
+\texttt{\textless{}END\textgreater{}} token and don't compute loss or
+gradient for \texttt{\textless{}NULL\textgreater{}} tokens. Since they
+are a bit of a pain, we have taken care of all implementation details
+around special tokens for you.
+
+You can load all of the MS-COCO data (captions, features, URLs, and
+vocabulary) using the \texttt{load\_coco\_data} function from the file
+\texttt{cs231n/coco\_utils.py}. Run the following cell to do so:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Load COCO data from disk; this returns a dictionary}
+        \PY{c+c1}{\PYZsh{} We\PYZsq{}ll work with dimensionality\PYZhy{}reduced features for this notebook, but feel}
+        \PY{c+c1}{\PYZsh{} free to experiment with the original features by changing the flag below.}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}coco\PYZus{}data}\PY{p}{(}\PY{n}{pca\PYZus{}features}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print out all the keys and values from the data dictionary}
+        \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{,} \PY{n}{v}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{v}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train\_captions <class 'numpy.ndarray'> (400135, 17) int32
+train\_image\_idxs <class 'numpy.ndarray'> (400135,) int32
+val\_captions <class 'numpy.ndarray'> (195954, 17) int32
+val\_image\_idxs <class 'numpy.ndarray'> (195954,) int32
+train\_features <class 'numpy.ndarray'> (82783, 512) float32
+val\_features <class 'numpy.ndarray'> (40504, 512) float32
+idx\_to\_word <class 'list'> 1004
+word\_to\_idx <class 'dict'> 1004
+train\_urls <class 'numpy.ndarray'> (82783,) <U63
+val\_urls <class 'numpy.ndarray'> (40504,) <U63
+
+    \end{Verbatim}
+
+    \hypertarget{look-at-the-data}{%
+\subsection{Look at the data}\label{look-at-the-data}}
+
+It is always a good idea to look at examples from the dataset before
+working with it.
+
+You can use the \texttt{sample\_coco\_minibatch} function from the file
+\texttt{cs231n/coco\_utils.py} to sample minibatches of data from the
+data structure returned from \texttt{load\_coco\_data}. Run the
+following to sample a small minibatch of training data and show the
+images and their captions. Running it multiple times and looking at the
+results helps you to get a sense of the dataset.
+
+Note that we decode the captions using the \texttt{decode\_captions}
+function and that we download the images on-the-fly using their Flickr
+URL, so \textbf{you must be connected to the internet to view images}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Sample a minibatch and show the images and captions}
+        \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{3}
+        
+        \PY{n}{captions}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{urls} \PY{o}{=} \PY{n}{sample\PYZus{}coco\PYZus{}minibatch}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{p}{(}\PY{n}{caption}\PY{p}{,} \PY{n}{url}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{captions}\PY{p}{,} \PY{n}{urls}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}from\PYZus{}url}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{caption\PYZus{}str} \PY{o}{=} \PY{n}{decode\PYZus{}captions}\PY{p}{(}\PY{n}{caption}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idx\PYZus{}to\PYZus{}word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{caption\PYZus{}str}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{recurrent-neural-networks}{%
+\section{Recurrent Neural Networks}\label{recurrent-neural-networks}}
+
+As discussed in lecture, we will use recurrent neural network (RNN)
+language models for image captioning. The file
+\texttt{cs231n/rnn\_layers.py} contains implementations of different
+layer types that are needed for recurrent neural networks, and the file
+\texttt{cs231n/classifiers/rnn.py} uses these layers to implement an
+image captioning model.
+
+We will first implement different types of RNN layers in
+\texttt{cs231n/rnn\_layers.py}.
+
+    \hypertarget{vanilla-rnn-step-forward}{%
+\section{Vanilla RNN: step forward}\label{vanilla-rnn-step-forward}}
+
+Open the file \texttt{cs231n/rnn\_layers.py}. This file implements the
+forward and backward passes for different types of layers that are
+commonly used in recurrent neural networks.
+
+First implement the function \texttt{rnn\_step\_forward} which
+implements the forward pass for a single timestep of a vanilla recurrent
+neural network. After doing so run the following to check your
+implementation. You should see errors on the order of e-8 or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{4}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{N}\PY{o}{*}\PY{n}{D}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+        \PY{n}{prev\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{N}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{D}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{H}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{H}\PY{p}{)}
+        
+        \PY{n}{next\PYZus{}h}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{prev\PYZus{}h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        \PY{n}{expected\PYZus{}next\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}
+          \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.58172089}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.50182032}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.41232771}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.31410098}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.66854692}\PY{p}{,}  \PY{l+m+mf}{0.79562378}\PY{p}{,}  \PY{l+m+mf}{0.87755553}\PY{p}{,}  \PY{l+m+mf}{0.92795967}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.97934501}\PY{p}{,}  \PY{l+m+mf}{0.99144213}\PY{p}{,}  \PY{l+m+mf}{0.99646691}\PY{p}{,}  \PY{l+m+mf}{0.99854353}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{next\PYZus{}h error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{expected\PYZus{}next\PYZus{}h}\PY{p}{,} \PY{n}{next\PYZus{}h}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+next\_h error:  6.292421426471037e-09
+
+    \end{Verbatim}
+
+    \hypertarget{vanilla-rnn-step-backward}{%
+\section{Vanilla RNN: step backward}\label{vanilla-rnn-step-backward}}
+
+In the file \texttt{cs231n/rnn\_layers.py} implement the
+\texttt{rnn\_step\_backward} function. After doing so run the following
+to numerically gradient check your implementation. You should see errors
+on the order of \texttt{e-8} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{rnn\PYZus{}layers} \PY{k}{import} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{,} \PY{n}{rnn\PYZus{}step\PYZus{}backward}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+        \PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+        \PY{n}{h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+        
+        \PY{n}{out}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{dnext\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{o}{*}\PY{n}{out}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+        \PY{n}{fx} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fh} \PY{o}{=} \PY{k}{lambda} \PY{n}{prev\PYZus{}h}\PY{p}{:} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fWx} \PY{o}{=} \PY{k}{lambda} \PY{n}{Wx}\PY{p}{:} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fWh} \PY{o}{=} \PY{k}{lambda} \PY{n}{Wh}\PY{p}{:} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fb} \PY{o}{=} \PY{k}{lambda} \PY{n}{b}\PY{p}{:} \PY{n}{rnn\PYZus{}step\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{dx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fx}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{dnext\PYZus{}h}\PY{p}{)}
+        \PY{n}{dprev\PYZus{}h\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fh}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{dnext\PYZus{}h}\PY{p}{)}
+        \PY{n}{dWx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fWx}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{dnext\PYZus{}h}\PY{p}{)}
+        \PY{n}{dWh\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fWh}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{dnext\PYZus{}h}\PY{p}{)}
+        \PY{n}{db\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fb}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{dnext\PYZus{}h}\PY{p}{)}
+        
+        \PY{n}{dx}\PY{p}{,} \PY{n}{dprev\PYZus{}h}\PY{p}{,} \PY{n}{dWx}\PY{p}{,} \PY{n}{dWh}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{n}{rnn\PYZus{}step\PYZus{}backward}\PY{p}{(}\PY{n}{dnext\PYZus{}h}\PY{p}{,} \PY{n}{cache}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dx\PYZus{}num}\PY{p}{,} \PY{n}{dx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dprev\PYZus{}h error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dprev\PYZus{}h\PYZus{}num}\PY{p}{,} \PY{n}{dprev\PYZus{}h}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dWx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dWx\PYZus{}num}\PY{p}{,} \PY{n}{dWx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dWh error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dWh\PYZus{}num}\PY{p}{,} \PY{n}{dWh}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{db\PYZus{}num}\PY{p}{,} \PY{n}{db}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dx error:  2.319932372313319e-10
+dprev\_h error:  2.6828355645784327e-10
+dWx error:  8.820244454238703e-10
+dWh error:  4.703287554560559e-10
+db error:  1.5956895526227225e-11
+
+    \end{Verbatim}
+
+    \hypertarget{vanilla-rnn-forward}{%
+\section{Vanilla RNN: forward}\label{vanilla-rnn-forward}}
+
+Now that you have implemented the forward and backward passes for a
+single timestep of a vanilla RNN, you will combine these pieces to
+implement a RNN that processes an entire sequence of data.
+
+In the file \texttt{cs231n/rnn\_layers.py}, implement the function
+\texttt{rnn\_forward}. This should be implemented using the
+\texttt{rnn\_step\_forward} function that you defined above. After doing
+so run the following to check your implementation. You should see errors
+on the order of \texttt{e-7} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{N}\PY{o}{*}\PY{n}{T}\PY{o}{*}\PY{n}{D}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+        \PY{n}{h0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{N}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{D}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{H}\PY{o}{*}\PY{n}{H}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{H}\PY{p}{)}
+        
+        \PY{n}{h}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        \PY{n}{expected\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}
+          \PY{p}{[}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.42070749}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.27279261}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.11074945}\PY{p}{,}  \PY{l+m+mf}{0.05740409}\PY{p}{,}  \PY{l+m+mf}{0.22236251}\PY{p}{]}\PY{p}{,}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.39525808}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.22554661}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.0409454}\PY{p}{,}   \PY{l+m+mf}{0.14649412}\PY{p}{,}  \PY{l+m+mf}{0.32397316}\PY{p}{]}\PY{p}{,}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.42305111}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.24223728}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.04287027}\PY{p}{,}  \PY{l+m+mf}{0.15997045}\PY{p}{,}  \PY{l+m+mf}{0.35014525}\PY{p}{]}\PY{p}{,}
+          \PY{p}{]}\PY{p}{,}
+          \PY{p}{[}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.55857474}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.39065825}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.19198182}\PY{p}{,}  \PY{l+m+mf}{0.02378408}\PY{p}{,}  \PY{l+m+mf}{0.23735671}\PY{p}{]}\PY{p}{,}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.27150199}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.07088804}\PY{p}{,}  \PY{l+m+mf}{0.13562939}\PY{p}{,}  \PY{l+m+mf}{0.33099728}\PY{p}{,}  \PY{l+m+mf}{0.50158768}\PY{p}{]}\PY{p}{,}
+            \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.51014825}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.30524429}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.06755202}\PY{p}{,}  \PY{l+m+mf}{0.17806392}\PY{p}{,}  \PY{l+m+mf}{0.40333043}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{expected\PYZus{}h}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+h error:  7.728466151011529e-08
+
+    \end{Verbatim}
+
+    \hypertarget{vanilla-rnn-backward}{%
+\section{Vanilla RNN: backward}\label{vanilla-rnn-backward}}
+
+In the file \texttt{cs231n/rnn\_layers.py}, implement the backward pass
+for a vanilla RNN in the function \texttt{rnn\_backward}. This should
+run back-propagation over the entire sequence, making calls to the
+\texttt{rnn\_step\_backward} function that you defined earlier. You
+should see errors on the order of e-6 or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+        
+        \PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+        \PY{n}{h0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{Wh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{n}{H}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+        
+        \PY{n}{out}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{dout} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{o}{*}\PY{n}{out}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+        \PY{n}{dx}\PY{p}{,} \PY{n}{dh0}\PY{p}{,} \PY{n}{dWx}\PY{p}{,} \PY{n}{dWh}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{n}{rnn\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{cache}\PY{p}{)}
+        
+        \PY{n}{fx} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fh0} \PY{o}{=} \PY{k}{lambda} \PY{n}{h0}\PY{p}{:} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fWx} \PY{o}{=} \PY{k}{lambda} \PY{n}{Wx}\PY{p}{:} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fWh} \PY{o}{=} \PY{k}{lambda} \PY{n}{Wh}\PY{p}{:} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{fb} \PY{o}{=} \PY{k}{lambda} \PY{n}{b}\PY{p}{:} \PY{n}{rnn\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{dx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fx}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+        \PY{n}{dh0\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fh0}\PY{p}{,} \PY{n}{h0}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+        \PY{n}{dWx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fWx}\PY{p}{,} \PY{n}{Wx}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+        \PY{n}{dWh\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fWh}\PY{p}{,} \PY{n}{Wh}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+        \PY{n}{db\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fb}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dx\PYZus{}num}\PY{p}{,} \PY{n}{dx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dh0 error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dh0\PYZus{}num}\PY{p}{,} \PY{n}{dh0}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dWx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dWx\PYZus{}num}\PY{p}{,} \PY{n}{dWx}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dWh error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dWh\PYZus{}num}\PY{p}{,} \PY{n}{dWh}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{db\PYZus{}num}\PY{p}{,} \PY{n}{db}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dx error:  1.5402322184213243e-09
+dh0 error:  3.3824326261334578e-09
+dWx error:  7.238350796069372e-09
+dWh error:  1.3157659173166636e-07
+db error:  1.5353591509855146e-10
+
+    \end{Verbatim}
+
+    \hypertarget{word-embedding-forward}{%
+\section{Word embedding: forward}\label{word-embedding-forward}}
+
+In deep learning systems, we commonly represent words using vectors.
+Each word of the vocabulary will be associated with a vector, and these
+vectors will be learned jointly with the rest of the system.
+
+In the file \texttt{cs231n/rnn\_layers.py}, implement the function
+\texttt{word\_embedding\_forward} to convert words (represented by
+integers) into vectors. Run the following to check your implementation.
+You should see an error on the order of \texttt{e-8} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{D} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}
+        
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{V}\PY{o}{*}\PY{n}{D}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+        
+        \PY{n}{out}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{word\PYZus{}embedding\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{W}\PY{p}{)}
+        \PY{n}{expected\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}
+         \PY{p}{[}\PY{p}{[} \PY{l+m+mf}{0.}\PY{p}{,}          \PY{l+m+mf}{0.07142857}\PY{p}{,}  \PY{l+m+mf}{0.14285714}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.64285714}\PY{p}{,}  \PY{l+m+mf}{0.71428571}\PY{p}{,}  \PY{l+m+mf}{0.78571429}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.21428571}\PY{p}{,}  \PY{l+m+mf}{0.28571429}\PY{p}{,}  \PY{l+m+mf}{0.35714286}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.42857143}\PY{p}{,}  \PY{l+m+mf}{0.5}\PY{p}{,}         \PY{l+m+mf}{0.57142857}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+         \PY{p}{[}\PY{p}{[} \PY{l+m+mf}{0.42857143}\PY{p}{,}  \PY{l+m+mf}{0.5}\PY{p}{,}         \PY{l+m+mf}{0.57142857}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.21428571}\PY{p}{,}  \PY{l+m+mf}{0.28571429}\PY{p}{,}  \PY{l+m+mf}{0.35714286}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.}\PY{p}{,}          \PY{l+m+mf}{0.07142857}\PY{p}{,}  \PY{l+m+mf}{0.14285714}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[} \PY{l+m+mf}{0.64285714}\PY{p}{,}  \PY{l+m+mf}{0.71428571}\PY{p}{,}  \PY{l+m+mf}{0.78571429}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{expected\PYZus{}out}\PY{p}{,} \PY{n}{out}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+out error:  1.0000000094736443e-08
+
+    \end{Verbatim}
+
+    \hypertarget{word-embedding-backward}{%
+\section{Word embedding: backward}\label{word-embedding-backward}}
+
+Implement the backward pass for the word embedding function in the
+function \texttt{word\_embedding\_backward}. After doing so run the
+following to numerically gradient check your implementation. You should
+see an error on the order of \texttt{e-11} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+         
+         \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{D} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)}\PY{p}{)}
+         \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+         
+         \PY{n}{out}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{word\PYZus{}embedding\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{W}\PY{p}{)}
+         \PY{n}{dout} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{o}{*}\PY{n}{out}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{dW} \PY{o}{=} \PY{n}{word\PYZus{}embedding\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{cache}\PY{p}{)}
+         
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{W}\PY{p}{:} \PY{n}{word\PYZus{}embedding\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{W}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{dW\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{W}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dW error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dW}\PY{p}{,} \PY{n}{dW\PYZus{}num}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dW error:  3.2774595693100364e-12
+
+    \end{Verbatim}
+
+    \hypertarget{temporal-affine-layer}{%
+\section{Temporal Affine layer}\label{temporal-affine-layer}}
+
+At every timestep we use an affine function to transform the RNN hidden
+vector at that timestep into scores for each word in the vocabulary.
+Because this is very similar to the affine layer that you implemented in
+assignment 2, we have provided this function for you in the
+\texttt{temporal\_affine\_forward} and
+\texttt{temporal\_affine\_backward} functions in the file
+\texttt{cs231n/rnn\_layers.py}. Run the following to perform numeric
+gradient checking on the implementation. You should see errors on the
+order of e-9 or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Gradient check for temporal affine layer}
+         \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{M}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{M}\PY{p}{)}
+         
+         \PY{n}{out}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{temporal\PYZus{}affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+         
+         \PY{n}{dout} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{o}{*}\PY{n}{out}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{n}{fx} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{temporal\PYZus{}affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{fw} \PY{o}{=} \PY{k}{lambda} \PY{n}{w}\PY{p}{:} \PY{n}{temporal\PYZus{}affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{fb} \PY{o}{=} \PY{k}{lambda} \PY{n}{b}\PY{p}{:} \PY{n}{temporal\PYZus{}affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{dx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fx}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         \PY{n}{dw\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fw}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         \PY{n}{db\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fb}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         
+         \PY{n}{dx}\PY{p}{,} \PY{n}{dw}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{n}{temporal\PYZus{}affine\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{cache}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dx\PYZus{}num}\PY{p}{,} \PY{n}{dx}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dw error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dw\PYZus{}num}\PY{p}{,} \PY{n}{dw}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{db\PYZus{}num}\PY{p}{,} \PY{n}{db}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dx error:  2.9215945034030545e-10
+dw error:  1.5772088618663602e-10
+db error:  3.252200556967514e-11
+
+    \end{Verbatim}
+
+    \hypertarget{temporal-softmax-loss}{%
+\section{Temporal Softmax loss}\label{temporal-softmax-loss}}
+
+In an RNN language model, at every timestep we produce a score for each
+word in the vocabulary. We know the ground-truth word at each timestep,
+so we use a softmax loss function to compute loss and gradient at each
+timestep. We sum the losses over time and average them over the
+minibatch.
+
+However there is one wrinkle: since we operate over minibatches and
+different captions may have different lengths, we append
+\texttt{\textless{}NULL\textgreater{}} tokens to the end of each caption
+so they all have the same length. We don't want these
+\texttt{\textless{}NULL\textgreater{}} tokens to count toward the loss
+or gradient, so in addition to scores and ground-truth labels our loss
+function also accepts a \texttt{mask} array that tells it which elements
+of the scores count towards the loss.
+
+Since this is very similar to the softmax loss function you implemented
+in assignment 1, we have implemented this loss function for you; look at
+the \texttt{temporal\_softmax\_loss} function in the file
+\texttt{cs231n/rnn\_layers.py}.
+
+Run the following cell to sanity check the loss and perform numeric
+gradient checking on the function. You should see an error for dx on the
+order of e-7 or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Sanity check for temporal softmax loss}
+         \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{rnn\PYZus{}layers} \PY{k}{import} \PY{n}{temporal\PYZus{}softmax\PYZus{}loss}
+         
+         \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}
+         
+         \PY{k}{def} \PY{n+nf}{check\PYZus{}loss}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.001} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)}\PY{p}{)}
+             \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{p}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{temporal\PYZus{}softmax\PYZus{}loss}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+           
+         \PY{n}{check\PYZus{}loss}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}   \PY{c+c1}{\PYZsh{} Should be about 2.3}
+         \PY{n}{check\PYZus{}loss}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Should be about 23}
+         \PY{n}{check\PYZus{}loss}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Should be about 2.3}
+         
+         \PY{c+c1}{\PYZsh{} Gradient check for temporal softmax loss}
+         \PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{V}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mask} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5}\PY{p}{)}
+         
+         \PY{n}{loss}\PY{p}{,} \PY{n}{dx} \PY{o}{=} \PY{n}{temporal\PYZus{}softmax\PYZus{}loss}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{dx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{temporal\PYZus{}softmax\PYZus{}loss}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dx}\PY{p}{,} \PY{n}{dx\PYZus{}num}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.3027781774290146
+23.025985953127226
+2.2643611790293394
+dx error:  2.583585303524283e-08
+
+    \end{Verbatim}
+
+    \hypertarget{rnn-for-image-captioning}{%
+\section{RNN for image captioning}\label{rnn-for-image-captioning}}
+
+Now that you have implemented the necessary layers, you can combine them
+to build an image captioning model. Open the file
+\texttt{cs231n/classifiers/rnn.py} and look at the
+\texttt{CaptioningRNN} class.
+
+Implement the forward and backward pass of the model in the
+\texttt{loss} function. For now you only need to implement the case
+where \texttt{cell\_type=\textquotesingle{}rnn\textquotesingle{}} for
+vanialla RNNs; you will implement the LSTM case later. After doing so,
+run the following to check your forward pass using a small test case;
+you should see error on the order of \texttt{e-10} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{W}\PY{p}{,} \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{40}
+         \PY{n}{word\PYZus{}to\PYZus{}idx} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}NULL\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+         \PY{n}{V} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{word\PYZus{}to\PYZus{}idx}\PY{p}{)}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{13}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{CaptioningRNN}\PY{p}{(}\PY{n}{word\PYZus{}to\PYZus{}idx}\PY{p}{,}
+                   \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{D}\PY{p}{,}
+                   \PY{n}{wordvec\PYZus{}dim}\PY{o}{=}\PY{n}{W}\PY{p}{,}
+                   \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{n}{H}\PY{p}{,}
+                   \PY{n}{cell\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rnn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Set all model parameters to fixed values}
+         \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{model}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{model}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.4}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{v}\PY{o}{.}\PY{n}{size}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{*}\PY{n}{v}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{p}{(}\PY{n}{N} \PY{o}{*} \PY{n}{D}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+         \PY{n}{captions} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N} \PY{o}{*} \PY{n}{T}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{V}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)}
+         
+         \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{captions}\PY{p}{)}
+         \PY{n}{expected\PYZus{}loss} \PY{o}{=} \PY{l+m+mf}{9.83235591003}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected loss: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expected\PYZus{}loss}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{difference: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{loss} \PY{o}{\PYZhy{}} \PY{n}{expected\PYZus{}loss}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+loss:  9.832355910027387
+expected loss:  9.83235591003
+difference:  2.6130209107577684e-12
+
+    \end{Verbatim}
+
+    Run the following cell to perform numeric gradient checking on the
+\texttt{CaptioningRNN} class; you should see errors around the order of
+\texttt{e-6} or less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+         
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{timesteps} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{wordvec\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{hidden\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{6}
+         \PY{n}{word\PYZus{}to\PYZus{}idx} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}NULL\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+         \PY{n}{vocab\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{word\PYZus{}to\PYZus{}idx}\PY{p}{)}
+         
+         \PY{n}{captions} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{vocab\PYZus{}size}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{timesteps}\PY{p}{)}\PY{p}{)}
+         \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{p}{)}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{CaptioningRNN}\PY{p}{(}\PY{n}{word\PYZus{}to\PYZus{}idx}\PY{p}{,}
+                   \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{input\PYZus{}dim}\PY{p}{,}
+                   \PY{n}{wordvec\PYZus{}dim}\PY{o}{=}\PY{n}{wordvec\PYZus{}dim}\PY{p}{,}
+                   \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{n}{hidden\PYZus{}dim}\PY{p}{,}
+                   \PY{n}{cell\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rnn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{,}
+                 \PY{p}{)}
+         
+         \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{captions}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{param\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{grads}\PY{p}{)}\PY{p}{:}
+             \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{\PYZus{}}\PY{p}{:} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{captions}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{param\PYZus{}grad\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+             \PY{n}{e} \PY{o}{=} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{param\PYZus{}grad\PYZus{}num}\PY{p}{,} \PY{n}{grads}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ relative error: }\PY{l+s+si}{\PYZpc{}e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{param\PYZus{}name}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+W\_embed relative error: 2.331071e-09
+W\_proj relative error: 9.974426e-09
+W\_vocab relative error: 4.274378e-09
+Wh relative error: 5.557955e-09
+Wx relative error: 7.725620e-07
+b relative error: 8.001353e-10
+b\_proj relative error: 6.260039e-09
+b\_vocab relative error: 1.690334e-09
+
+    \end{Verbatim}
+
+    \hypertarget{overfit-small-data}{%
+\section{Overfit small data}\label{overfit-small-data}}
+
+Similar to the \texttt{Solver} class that we used to train image
+classification models on the previous assignment, on this assignment we
+use a \texttt{CaptioningSolver} class to train image captioning models.
+Open the file \texttt{cs231n/captioning\_solver.py} and read through the
+\texttt{CaptioningSolver} class; it should look very familiar.
+
+Once you have familiarized yourself with the API, run the following to
+make sure your model overfits a small sample of 100 training examples.
+You should see a final loss of less than 0.1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+         
+         \PY{n}{small\PYZus{}data} \PY{o}{=} \PY{n}{load\PYZus{}coco\PYZus{}data}\PY{p}{(}\PY{n}{max\PYZus{}train}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         
+         \PY{n}{small\PYZus{}rnn\PYZus{}model} \PY{o}{=} \PY{n}{CaptioningRNN}\PY{p}{(}
+                   \PY{n}{cell\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rnn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{word\PYZus{}to\PYZus{}idx}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}to\PYZus{}idx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{hidden\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{,}
+                   \PY{n}{wordvec\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{256}\PY{p}{,}
+                 \PY{p}{)}
+         
+         \PY{n}{small\PYZus{}rnn\PYZus{}solver} \PY{o}{=} \PY{n}{CaptioningSolver}\PY{p}{(}\PY{n}{small\PYZus{}rnn\PYZus{}model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                    \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                    \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}
+                    \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{5e\PYZhy{}3}\PY{p}{,}
+                    \PY{p}{\PYZcb{}}\PY{p}{,}
+                    \PY{n}{lr\PYZus{}decay}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                  \PY{p}{)}
+         
+         \PY{n}{small\PYZus{}rnn\PYZus{}solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the training losses}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{small\PYZus{}rnn\PYZus{}solver}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training loss history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(Iteration 1 / 100) loss: 76.913487
+(Iteration 11 / 100) loss: 21.063261
+(Iteration 21 / 100) loss: 4.016200
+(Iteration 31 / 100) loss: 0.567058
+(Iteration 41 / 100) loss: 0.239455
+(Iteration 51 / 100) loss: 0.162028
+(Iteration 61 / 100) loss: 0.111545
+(Iteration 71 / 100) loss: 0.097591
+(Iteration 81 / 100) loss: 0.099106
+(Iteration 91 / 100) loss: 0.073983
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{test-time-sampling}{%
+\section{Test-time sampling}\label{test-time-sampling}}
+
+Unlike classification models, image captioning models behave very
+differently at training time and at test time. At training time, we have
+access to the ground-truth caption, so we feed ground-truth words as
+input to the RNN at each timestep. At test time, we sample from the
+distribution over the vocabulary at each timestep, and feed the sample
+as input to the RNN at the next timestep.
+
+In the file \texttt{cs231n/classifiers/rnn.py}, implement the
+\texttt{sample} method for test-time sampling. After doing so, run the
+following to sample from your overfitted model on both training and
+validation data. The samples on training data should be very good; the
+samples on validation data probably won't make sense.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{split} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n}{minibatch} \PY{o}{=} \PY{n}{sample\PYZus{}coco\PYZus{}minibatch}\PY{p}{(}\PY{n}{small\PYZus{}data}\PY{p}{,} \PY{n}{split}\PY{o}{=}\PY{n}{split}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{gt\PYZus{}captions}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{urls} \PY{o}{=} \PY{n}{minibatch}
+             \PY{n}{gt\PYZus{}captions} \PY{o}{=} \PY{n}{decode\PYZus{}captions}\PY{p}{(}\PY{n}{gt\PYZus{}captions}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idx\PYZus{}to\PYZus{}word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{sample\PYZus{}captions} \PY{o}{=} \PY{n}{small\PYZus{}rnn\PYZus{}model}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+             \PY{n}{sample\PYZus{}captions} \PY{o}{=} \PY{n}{decode\PYZus{}captions}\PY{p}{(}\PY{n}{sample\PYZus{}captions}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idx\PYZus{}to\PYZus{}word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{gt\PYZus{}caption}\PY{p}{,} \PY{n}{sample\PYZus{}caption}\PY{p}{,} \PY{n}{url} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{gt\PYZus{}captions}\PY{p}{,} \PY{n}{sample\PYZus{}captions}\PY{p}{,} \PY{n}{urls}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}from\PYZus{}url}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{GT:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{split}\PY{p}{,} \PY{n}{sample\PYZus{}caption}\PY{p}{,} \PY{n}{gt\PYZus{}caption}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{inline-question-1}{%
+\section{INLINE QUESTION 1}\label{inline-question-1}}
+
+    In our current image captioning setup, our RNN language model produces a
+word at every timestep as its output. However, an alternate way to pose
+the problem is to train the network to operate over \emph{characters}
+(e.g. `a', `b', etc.) as opposed to words, so that at it every timestep,
+it receives the previous character as input and tries to predict the
+next character in the sequence. For example, the network might generate
+a caption like
+
+`A', ' `, 'c', `a', `t', ' `, 'o', `n', ' `, 'a', ' `, 'b', `e', `d'
+
+Can you describe one advantage of an image-captioning model that uses a
+character-level RNN? Can you also describe one disadvantage? HINT: there
+are several valid answers, but it might be useful to compare the
+parameter space of word-level and character-level models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}to\PYZus{}idx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} \{'shop': 627,
+          'all': 317,
+          'seated': 784,
+          'pointing': 865,
+          'skis': 156,
+          'foot': 829,
+          'yellow': 113,
+          'four': 234,
+          'skate': 241,
+          'asian': 749,
+          'hanging': 257,
+          'dish': 505,
+          'chair': 170,
+          'children': 274,
+          'row': 409,
+          'equipment': 693,
+          'feeding': 629,
+          'tv': 297,
+          'fenced': 641,
+          'young': 49,
+          'suits': 935,
+          'to': 13,
+          'bicycles': 713,
+          'bike': 226,
+          'under': 147,
+          'cluttered': 774,
+          'enjoying': 594,
+          'brown': 112,
+          'woman': 23,
+          'garden': 799,
+          'sitting': 14,
+          'very': 142,
+          'dessert': 737,
+          'blanket': 500,
+          'wave': 196,
+          'spoon': 758,
+          'closeup': 615,
+          'sunny': 496,
+          'kitten': 847,
+          'stacked': 762,
+          'drinking': 461,
+          'fireplace': 659,
+          'school': 663,
+          'clouds': 837,
+          'couches': 765,
+          'wooden': 99,
+          'laying': 95,
+          'colors': 927,
+          'cloudy': 443,
+          'large': 29,
+          'sand': 411,
+          'woods': 619,
+          'subway': 746,
+          'team': 791,
+          'small': 37,
+          'sidewalk': 195,
+          'rack': 699,
+          'clothes': 696,
+          'pants': 920,
+          'cap': 995,
+          'bicycle': 349,
+          'fence': 184,
+          'phones': 617,
+          'skiing': 236,
+          'sign': 59,
+          'past': 440,
+          'go': 798,
+          'street': 25,
+          'video': 300,
+          'traveling': 305,
+          'run': 734,
+          'arms': 825,
+          'drinks': 642,
+          'blue': 60,
+          'what': 972,
+          'plays': 706,
+          'stands': 167,
+          'clock': 91,
+          'giving': 948,
+          'sun': 511,
+          'cooking': 576,
+          'while': 55,
+          'uniform': 513,
+          'cell': 176,
+          'lights': 340,
+          'waiting': 338,
+          'poles': 637,
+          'above': 239,
+          '<NULL>': 0,
+          'new': 875,
+          'suitcases': 710,
+          'blender': 785,
+          'racing': 980,
+          'bird': 178,
+          'filled': 146,
+          'body': 315,
+          '<END>': 2,
+          'full': 219,
+          'sinks': 704,
+          'gathered': 607,
+          'men': 81,
+          'commercial': 721,
+          'french': 777,
+          'herd': 263,
+          'water': 52,
+          'tracks': 203,
+          'apartment': 1003,
+          'baseball': 53,
+          'sink': 117,
+          'making': 460,
+          'alone': 681,
+          'path': 548,
+          'along': 221,
+          'trail': 756,
+          'box': 294,
+          'boy': 79,
+          'kids': 412,
+          'colored': 425,
+          'luggage': 245,
+          'items': 356,
+          'leaves': 493,
+          'rocky': 827,
+          'airport': 286,
+          'smoke': 931,
+          'action': 933,
+          'military': 776,
+          'narrow': 903,
+          'pillow': 820,
+          'sticking': 730,
+          'control': 688,
+          'apple': 473,
+          'family': 566,
+          'buses': 422,
+          'pitch': 547,
+          'transit': 911,
+          'pasture': 632,
+          'wii': 251,
+          'sliced': 672,
+          'snowboard': 344,
+          'tomato': 985,
+          'motor': 555,
+          'toys': 924,
+          'kind': 882,
+          'market': 488,
+          'standing': 17,
+          'swings': 770,
+          'from': 97,
+          'takes': 687,
+          'working': 507,
+          'donuts': 403,
+          'contains': 959,
+          'two': 16,
+          'rackets': 818,
+          'next': 21,
+          'few': 423,
+          'wood': 318,
+          'overhead': 891,
+          'vehicle': 558,
+          'taken': 722,
+          'type': 876,
+          'plain': 939,
+          'horses': 192,
+          'flat': 689,
+          'door': 296,
+          'tennis': 39,
+          'stone': 486,
+          'chocolate': 450,
+          'phone': 115,
+          'flag': 808,
+          'carrying': 327,
+          'adult': 429,
+          'baby': 206,
+          'hole': 960,
+          'mounted': 614,
+          'women': 186,
+          'town': 575,
+          'grill': 954,
+          'animals': 298,
+          'room': 44,
+          'salad': 469,
+          'player': 90,
+          'this': 141,
+          'car': 129,
+          'ride': 533,
+          'work': 723,
+          'roof': 892,
+          'cat': 51,
+          'decker': 357,
+          'donut': 520,
+          'striped': 674,
+          'can': 456,
+          'island': 994,
+          'pulling': 384,
+          'male': 367,
+          'veggies': 915,
+          'beautiful': 515,
+          'grassy': 213,
+          'pieces': 553,
+          'high': 351,
+          'foods': 717,
+          'carrot': 951,
+          'posing': 292,
+          'something': 336,
+          'pond': 893,
+          'cows': 240,
+          'sunglasses': 779,
+          'airplane': 164,
+          'surfers': 747,
+          'dress': 530,
+          'tan': 874,
+          'pink': 255,
+          'huge': 683,
+          'six': 984,
+          'court': 152,
+          'winter': 969,
+          'sit': 227,
+          'onions': 816,
+          'holds': 259,
+          'machine': 880,
+          'hot': 269,
+          'forest': 427,
+          'animal': 370,
+          'elephant': 140,
+          'boats': 295,
+          'gate': 819,
+          'toddler': 824,
+          'beach': 76,
+          'pizza': 67,
+          'buildings': 266,
+          'sandwich': 188,
+          'bags': 653,
+          'structure': 968,
+          'watch': 475,
+          'after': 651,
+          'containing': 640,
+          'tied': 878,
+          'jumping': 280,
+          'trees': 128,
+          'waves': 454,
+          'end': 621,
+          'vase': 204,
+          'lap': 586,
+          'types': 583,
+          'man': 12,
+          'a': 4,
+          'surfing': 377,
+          'neck': 673,
+          'crowded': 665,
+          'light': 174,
+          'counter': 185,
+          'eats': 804,
+          'shore': 559,
+          'truck': 125,
+          'shade': 945,
+          'things': 833,
+          'basket': 574,
+          'tall': 200,
+          'lined': 424,
+          'pulled': 670,
+          'playing': 57,
+          'wine': 237,
+          'cute': 623,
+          'serving': 733,
+          'shoes': 660,
+          'office': 477,
+          'over': 93,
+          'toward': 769,
+          'displayed': 451,
+          'meter': 480,
+          'held': 957,
+          'paper': 328,
+          'through': 105,
+          'motorcycle': 131,
+          'oven': 282,
+          'signs': 231,
+          'smiling': 293,
+          'still': 943,
+          'its': 114,
+          'bunch': 171,
+          '<START>': 1,
+          'style': 732,
+          'group': 34,
+          'monitor': 463,
+          'reflection': 772,
+          'backpack': 764,
+          'sale': 894,
+          'lamp': 585,
+          'platform': 528,
+          'window': 126,
+          'orange': 190,
+          'covered': 135,
+          'soccer': 304,
+          'sauce': 554,
+          'image': 225,
+          'them': 253,
+          'someone': 363,
+          'food': 61,
+          'wooded': 812,
+          'oranges': 434,
+          'scene': 466,
+          'underneath': 527,
+          'tile': 669,
+          'walls': 484,
+          'giraffe': 119,
+          'they': 579,
+          'hands': 361,
+          'front': 41,
+          'cage': 887,
+          'day': 218,
+          'bread': 439,
+          'smiles': 743,
+          'gets': 936,
+          'meat': 343,
+          'lies': 964,
+          'potatoes': 725,
+          'leading': 970,
+          'rocks': 470,
+          'floors': 839,
+          'stopped': 526,
+          'tomatoes': 690,
+          'each': 134,
+          'crossing': 457,
+          'beneath': 953,
+          'tray': 380,
+          'side': 69,
+          'trailer': 863,
+          'glasses': 254,
+          'square': 768,
+          'elephants': 212,
+          'doing': 256,
+          'house': 332,
+          'fish': 830,
+          'hard': 997,
+          'plant': 581,
+          'bowls': 600,
+          'surfboards': 522,
+          'books': 508,
+          'doors': 849,
+          'zebra': 183,
+          'girl': 96,
+          'skateboarding': 537,
+          'enclosure': 396,
+          'sandy': 556,
+          'out': 87,
+          'living': 122,
+          'shown': 386,
+          'flower': 497,
+          'container': 702,
+          'opened': 990,
+          'driving': 230,
+          'space': 711,
+          'electronic': 864,
+          'jump': 604,
+          'surrounded': 400,
+          'looking': 72,
+          'farm': 1001,
+          'race': 857,
+          'hill': 224,
+          'wide': 879,
+          'get': 788,
+          'red': 48,
+          'shows': 546,
+          'foreground': 912,
+          'umbrella': 130,
+          'dirt': 220,
+          'cars': 202,
+          'little': 145,
+          'cart': 562,
+          'houses': 946,
+          'graze': 877,
+          'base': 535,
+          'cement': 753,
+          'cattle': 635,
+          'guy': 323,
+          'bushes': 697,
+          'poses': 720,
+          'yard': 534,
+          'shelves': 810,
+          'computers': 551,
+          'skateboard': 86,
+          'used': 987,
+          'round': 767,
+          'turn': 869,
+          'plane': 180,
+          'place': 631,
+          'pepperoni': 932,
+          'swing': 438,
+          'snowboarding': 835,
+          'onto': 452,
+          'bite': 896,
+          'silver': 417,
+          'cheese': 326,
+          'there': 65,
+          'features': 958,
+          'pots': 889,
+          'coming': 458,
+          'doughnuts': 591,
+          'number': 393,
+          'fancy': 926,
+          'one': 107,
+          'feet': 678,
+          'lettuce': 993,
+          'plants': 630,
+          'another': 187,
+          'ties': 963,
+          'scissors': 388,
+          'cups': 826,
+          'open': 132,
+          'umbrellas': 281,
+          '<UNK>': 3,
+          'sheep': 163,
+          'city': 84,
+          'horse': 111,
+          'toy': 426,
+          'hydrant': 179,
+          'jet': 346,
+          'bears': 339,
+          'vases': 550,
+          'top': 33,
+          'girls': 433,
+          'plastic': 491,
+          'their': 102,
+          'leash': 947,
+          'station': 229,
+          'stuffed': 232,
+          'time': 542,
+          'wrapped': 941,
+          'white': 22,
+          'legs': 728,
+          'banana': 320,
+          'store': 392,
+          'urban': 902,
+          'eyes': 836,
+          'streets': 991,
+          'way': 410,
+          'that': 26,
+          'shelf': 471,
+          'hotel': 587,
+          'park': 139,
+          'short': 940,
+          'flowers': 201,
+          'stairs': 796,
+          'center': 655,
+          'steel': 668,
+          'distance': 598,
+          'television': 290,
+          'double': 272,
+          'tree': 133,
+          'grey': 442,
+          'bed': 74,
+          'dogs': 314,
+          'shower': 355,
+          'stall': 815,
+          'apples': 467,
+          'fruits': 468,
+          'country': 565,
+          'and': 10,
+          'bridge': 405,
+          'before': 843,
+          'giraffes': 194,
+          'docked': 787,
+          'carrots': 404,
+          'ceiling': 858,
+          'talking': 278,
+          'outdoors': 761,
+          'graffiti': 643,
+          'pastry': 965,
+          'have': 449,
+          'seen': 472,
+          'breakfast': 754,
+          'gear': 628,
+          'mountain': 261,
+          'decorative': 981,
+          'dishes': 729,
+          'concrete': 650,
+          'shorts': 750,
+          'snow': 73,
+          'couch': 169,
+          'lit': 483,
+          'dining': 462,
+          'edge': 523,
+          'take': 648,
+          'which': 751,
+          'green': 68,
+          'rides': 383,
+          'rider': 895,
+          'surf': 311,
+          'play': 407,
+          'towards': 487,
+          'multiple': 606,
+          'zebras': 215,
+          'track': 289,
+          'serve': 748,
+          'eggs': 846,
+          'who': 313,
+          'mouth': 375,
+          'eaten': 564,
+          'net': 918,
+          'pair': 276,
+          'refrigerator': 252,
+          'pastries': 885,
+          'cellphone': 538,
+          'lawn': 792,
+          'cloth': 913,
+          'windows': 501,
+          'clear': 524,
+          'metal': 348,
+          'dog': 47,
+          'face': 358,
+          'sunset': 871,
+          'clean': 510,
+          'professional': 726,
+          'hotdog': 803,
+          'painting': 760,
+          'lying': 368,
+          'slope': 228,
+          'walking': 56,
+          'shot': 541,
+          'kite': 154,
+          'gold': 934,
+          'show': 759,
+          'stove': 291,
+          'walkway': 914,
+          'hillside': 794,
+          'bright': 498,
+          'bikes': 518,
+          'parked': 66,
+          'bedroom': 331,
+          'perched': 572,
+          'corner': 271,
+          'chicken': 652,
+          'tiled': 597,
+          'ground': 208,
+          'tarmac': 577,
+          'giant': 707,
+          'busy': 366,
+          'scooter': 949,
+          'outside': 121,
+          'going': 273,
+          'black': 42,
+          'pretty': 610,
+          'riding': 46,
+          'rice': 602,
+          'wearing': 89,
+          'plate': 43,
+          'his': 40,
+          'hit': 309,
+          'colorful': 299,
+          'watching': 285,
+          'stop': 149,
+          'photograph': 444,
+          'bear': 100,
+          'dry': 709,
+          'batter': 394,
+          'preparing': 372,
+          'wedding': 805,
+          'during': 247,
+          'candles': 626,
+          'chips': 897,
+          'him': 382,
+          'gray': 389,
+          'bat': 157,
+          'catcher': 567,
+          'bar': 661,
+          'motorcycles': 324,
+          'trucks': 599,
+          'leather': 962,
+          'boarder': 872,
+          'public': 509,
+          'bag': 391,
+          'containers': 989,
+          'she': 679,
+          'including': 671,
+          'river': 335,
+          'where': 739,
+          'steam': 973,
+          'view': 172,
+          'set': 316,
+          'picnic': 900,
+          'throwing': 447,
+          'fries': 490,
+          'keyboard': 283,
+          'seat': 441,
+          'see': 853,
+          'computer': 118,
+          'are': 20,
+          'sea': 907,
+          'parking': 205,
+          'racket': 207,
+          'close': 138,
+          'stack': 1002,
+          'arm': 700,
+          'wire': 755,
+          'lots': 322,
+          'pictures': 512,
+          'away': 714,
+          'below': 649,
+          'birds': 312,
+          'behind': 143,
+          'various': 303,
+          'closed': 866,
+          'between': 416,
+          'drawn': 813,
+          'hold': 909,
+          'reading': 582,
+          'across': 242,
+          'lays': 745,
+          'toilets': 908,
+          'screen': 390,
+          'planes': 664,
+          'outfit': 998,
+          'toothbrush': 654,
+          'produce': 1000,
+          'coffee': 319,
+          'police': 517,
+          'tub': 414,
+          'surfer': 364,
+          'kitchen': 62,
+          'both': 692,
+          'grass': 63,
+          'cow': 267,
+          'restaurant': 341,
+          'many': 136,
+          'taking': 233,
+          'ramp': 354,
+          'against': 321,
+          'restroom': 831,
+          'players': 329,
+          'doorway': 921,
+          'games': 771,
+          'party': 848,
+          'residential': 996,
+          'passing': 557,
+          'nearby': 682,
+          'among': 807,
+          'flies': 636,
+          'pose': 719,
+          'passenger': 360,
+          'wall': 137,
+          'pot': 676,
+          'others': 580,
+          'walk': 342,
+          'variety': 601,
+          'pole': 275,
+          'towels': 886,
+          'church': 705,
+          'table': 24,
+          'desktop': 821,
+          'grazing': 244,
+          'boat': 166,
+          'bathroom': 58,
+          'trunk': 686,
+          'teddy': 181,
+          'three': 78,
+          'been': 502,
+          'appears': 922,
+          'hitting': 474,
+          'beer': 616,
+          'peppers': 971,
+          'curtain': 873,
+          'brick': 345,
+          'staring': 727,
+          'empty': 277,
+          'kites': 264,
+          'engine': 603,
+          'resting': 482,
+          'modern': 592,
+          'commuter': 974,
+          'passengers': 613,
+          'fire': 148,
+          'airplanes': 718,
+          'clothing': 938,
+          'laptops': 590,
+          'photos': 910,
+          'controller': 544,
+          'mans': 904,
+          'ice': 841,
+          'child': 155,
+          'catch': 492,
+          'vanity': 977,
+          'skiers': 432,
+          'case': 561,
+          'skateboards': 691,
+          'look': 402,
+          'ledge': 814,
+          'ski': 265,
+          'runway': 325,
+          'single': 588,
+          'air': 123,
+          'trick': 279,
+          'near': 38,
+          'skies': 817,
+          'leaning': 455,
+          'wild': 744,
+          'cats': 453,
+          'bathtub': 620,
+          'is': 11,
+          'lush': 476,
+          'it': 31,
+          'surface': 563,
+          'sleeping': 406,
+          'middle': 222,
+          'reads': 905,
+          'swinging': 284,
+          'in': 8,
+          'ready': 223,
+          'sits': 98,
+          'mouse': 437,
+          'ship': 976,
+          'helmet': 521,
+          'different': 193,
+          'bottles': 658,
+          'shirt': 189,
+          'vintage': 647,
+          'make': 955,
+          'bowl': 161,
+          'cross': 494,
+          'same': 773,
+          'beside': 243,
+          'vegetable': 884,
+          'plates': 307,
+          'several': 94,
+          'showing': 413,
+          'pan': 489,
+          'ball': 75,
+          'drink': 464,
+          'rail': 525,
+          'drives': 783,
+          'rain': 495,
+          'hand': 191,
+          'persons': 752,
+          'running': 362,
+          'fruit': 262,
+          'moving': 519,
+          'statue': 539,
+          'assortment': 789,
+          'broccoli': 248,
+          'loaded': 928,
+          'kid': 445,
+          'off': 214,
+          'surfboard': 158,
+          'older': 431,
+          'no': 479,
+          'well': 667,
+          'boxes': 677,
+          'ocean': 173,
+          'person': 28,
+          'cutting': 270,
+          'bottle': 385,
+          'trains': 589,
+          'five': 622,
+          'the': 7,
+          'left': 638,
+          'outdoor': 446,
+          'bananas': 211,
+          'just': 573,
+          'being': 209,
+          'photo': 162,
+          'laptop': 108,
+          'half': 399,
+          'cakes': 859,
+          'birthday': 481,
+          'mid': 809,
+          'not': 742,
+          'clocks': 800,
+          'dock': 675,
+          'rest': 944,
+          'zoo': 395,
+          'guys': 596,
+          'railroad': 639,
+          'tables': 506,
+          'polar': 724,
+          'cut': 379,
+          'snowboarder': 503,
+          'cup': 334,
+          'pier': 982,
+          'slices': 531,
+          'sky': 150,
+          'lake': 421,
+          'bench': 103,
+          'hay': 741,
+          'book': 371,
+          'pile': 418,
+          'board': 116,
+          'wet': 568,
+          'has': 54,
+          'hat': 250,
+          'match': 656,
+          'skier': 353,
+          'around': 106,
+          'big': 168,
+          'couple': 77,
+          'papers': 986,
+          'looks': 288,
+          'fridge': 680,
+          'bow': 979,
+          'dark': 398,
+          'game': 92,
+          'traffic': 177,
+          'background': 159,
+          'desk': 127,
+          'using': 310,
+          'doughnut': 560,
+          'intersection': 374,
+          'lady': 308,
+          'furniture': 436,
+          'painted': 485,
+          'towel': 715,
+          'like': 376,
+          'shaped': 716,
+          'chairs': 287,
+          'sofa': 666,
+          'signal': 930,
+          'performing': 605,
+          'glove': 844,
+          'controllers': 790,
+          'steps': 850,
+          'officer': 992,
+          'night': 337,
+          'served': 695,
+          'tower': 217,
+          'coat': 856,
+          'antique': 929,
+          'right': 645,
+          'old': 144,
+          'appliances': 612,
+          'crowd': 301,
+          'people': 19,
+          'some': 30,
+          'back': 165,
+          'hair': 459,
+          'palm': 978,
+          'mirror': 182,
+          'home': 347,
+          'mother': 735,
+          'electric': 983,
+          'facing': 822,
+          'slice': 373,
+          'for': 80,
+          'bottom': 890,
+          'purple': 435,
+          'ear': 901,
+          'microwave': 408,
+          'pen': 618,
+          'does': 883,
+          'railing': 988,
+          'skateboarder': 330,
+          'christmas': 757,
+          'knife': 397,
+          'be': 333,
+          'says': 854,
+          'object': 937,
+          'eating': 109,
+          'business': 782,
+          'reaching': 694,
+          'monitors': 867,
+          'tour': 923,
+          'jumps': 811,
+          'rock': 529,
+          'rug': 806,
+          'broken': 840,
+          'soup': 780,
+          'putting': 708,
+          'pasta': 906,
+          'sandwiches': 657,
+          'post': 625,
+          'kneeling': 870,
+          'by': 50,
+          'highway': 763,
+          'on': 5,
+          'about': 350,
+          'boards': 569,
+          'getting': 306,
+          'of': 6,
+          'meal': 420,
+          'dinner': 571,
+          'toppings': 595,
+          'stand': 199,
+          'or': 540,
+          'road': 85,
+          'swimming': 797,
+          'into': 151,
+          'bath': 532,
+          'down': 32,
+          'device': 917,
+          'benches': 608,
+          'brush': 646,
+          'female': 478,
+          'petting': 952,
+          'racquet': 359,
+          'van': 801,
+          'her': 88,
+          'area': 104,
+          'stainless': 832,
+          'vegetables': 210,
+          'flying': 82,
+          'lone': 736,
+          'long': 249,
+          'sides': 916,
+          'camera': 268,
+          'low': 793,
+          'lot': 198,
+          'suit': 260,
+          'was': 942,
+          'blurry': 967,
+          'fork': 465,
+          'mountains': 514,
+          'head': 235,
+          'himself': 898,
+          'snowy': 246,
+          'bus': 64,
+          'atop': 703,
+          'pitcher': 609,
+          'landing': 838,
+          'cabinet': 740,
+          'boys': 430,
+          'construction': 862,
+          'bun': 802,
+          'branch': 552,
+          'fighter': 925,
+          'line': 365,
+          'trying': 516,
+          'with': 9,
+          'eat': 543,
+          'he': 378,
+          'boarding': 786,
+          'throw': 778,
+          'made': 387,
+          'arranged': 868,
+          'inside': 160,
+          'attached': 448,
+          'up': 36,
+          'placed': 549,
+          'carriage': 644,
+          'catching': 698,
+          'dirty': 633,
+          'suitcase': 381,
+          'cake': 110,
+          'piece': 238,
+          'display': 258,
+          'skating': 851,
+          'toilet': 83,
+          'adults': 795,
+          'umpire': 781,
+          'pie': 899,
+          'watches': 593,
+          'an': 15,
+          'fly': 662,
+          'as': 124,
+          'curb': 634,
+          'at': 18,
+          'fashioned': 919,
+          'walks': 419,
+          'floating': 701,
+          'messy': 888,
+          'flock': 845,
+          'partially': 961,
+          'cream': 731,
+          'beds': 684,
+          'rainy': 999,
+          'cabinets': 428,
+          'floor': 197,
+          'dressed': 369,
+          'assorted': 834,
+          'topped': 302,
+          'event': 828,
+          'field': 35,
+          'other': 70,
+          'holding': 27,
+          'someones': 860,
+          'tie': 216,
+          'trash': 823,
+          'nice': 545,
+          'brushing': 570,
+          'picture': 101,
+          'frisbee': 120,
+          'kinds': 956,
+          'pillows': 685,
+          'setting': 504,
+          'prepared': 975,
+          'lunch': 855,
+          'nintendo': 584,
+          'prepares': 738,
+          'decorated': 415,
+          'pizzas': 578,
+          'friends': 861,
+          'desert': 852,
+          'pool': 775,
+          'building': 71,
+          'land': 842,
+          'remote': 352,
+          'overlooking': 881,
+          'glass': 175,
+          'pedestrians': 966,
+          'tricks': 611,
+          'vehicles': 712,
+          'together': 153,
+          'jacket': 401,
+          'cooked': 766,
+          'train': 45,
+          {\ldots}\}
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
